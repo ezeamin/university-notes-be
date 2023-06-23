@@ -17,9 +17,20 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post('/', async (req, res) => {
-  let text = `\nPrueba realizada a las ${new Date().toLocaleTimeString()} del día ${new Date().toLocaleDateString()}\n\n`;
+  let text = `\nPrueba realizada a las ${new Date().toLocaleTimeString(
+    ('es-AR',
+    {
+      timeZone: 'America/Argentina/Tucuman',
+    })
+  )} del día ${new Date().toLocaleDateString(
+    ('es-AR',
+    {
+      timeZone: 'America/Argentina/Tucuman',
+    })
+  )}\n\n`;
 
   const args = req.body;
+  let novedades = false;
 
   for (let i = 0; i < args.length; i++) {
     const { materia, state, score = '' } = args[i] || {};
@@ -28,9 +39,11 @@ router.post('/', async (req, res) => {
       (e) => e.letter === state
     ).description;
 
+    if(score) novedades = true;
+
     text += `
       ${materia.id} - ${materia.description} - ${description} (${state}) ${
-      score && `- ${score}`
+      score && `- ${score} ${score >= 4 ? '🥳🎉' : '😥😭'}`
     }
     `;
   }
@@ -38,7 +51,7 @@ router.post('/', async (req, res) => {
   const mailOptions = {
     from: process.env.MAIL_USER,
     to: process.env.MAIL_USER,
-    subject: 'Resultados de la prueba - UNSTA',
+    subject: `${novedades && "NOVEDADES!! - "}Resultados de la prueba - UNSTA`,
     text: text,
   };
 
