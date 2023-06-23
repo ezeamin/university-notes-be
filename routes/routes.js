@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 
 import dotenv from 'dotenv';
 
-import data from '../data.js';
+import { data } from '../data.js';
 
 dotenv.config();
 export const router = express.Router();
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 
   const mailOptions = {
     from: process.env.MAIL_USER,
-    to: process.env.MAIL_PASSWORD,
+    to: process.env.MAIL_USER,
     subject: 'Resultados de la prueba - UNSTA',
     text: text,
   };

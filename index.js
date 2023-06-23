@@ -1,9 +1,13 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
 import { router } from './routes/routes';
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
+dotenv.config();
 
 //1- Inicializamos express
 const app = express();
