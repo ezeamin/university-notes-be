@@ -39,11 +39,11 @@ router.post('/', async (req, res) => {
       (e) => e.letter === state
     ).description;
 
-    if(score) novedades = true;
+    if (score) novedades = true;
 
     text += `
       ${materia.id} - ${materia.description} - ${description} (${state}) ${
-      score && `- ${score} ${score >= 4 ? '🥳🎉' : '😥😭'}`
+      score ? `- ${score} ${score >= 4 ? '🥳🎉' : '😥😭'}` : ''
     }
     `;
   }
@@ -51,7 +51,9 @@ router.post('/', async (req, res) => {
   const mailOptions = {
     from: process.env.MAIL_USER,
     to: process.env.MAIL_USER,
-    subject: `${novedades && "NOVEDADES!! - "}Resultados de la prueba - UNSTA`,
+    subject: `${
+      novedades ? 'NOVEDADES!! - ' : ''
+    }Resultados de la prueba - UNSTA`,
     text: text,
   };
 
