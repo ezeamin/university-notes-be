@@ -34,6 +34,9 @@ devDependencies:
   '@babel/preset-env':
     specifier: ^7.22.5
     version: 7.22.5(@babel/core@7.22.5)
+  babel-node:
+    specifier: 0.0.1-security
+    version: 0.0.1-security
 
 packages:
 
@@ -1390,6 +1393,10 @@ packages:
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /babel-node@0.0.1-security:
+    resolution: {integrity: sha512-zF3D9H2FA2xrP+B/X462G+38aHpmR+33jBF7NowfPuV4CiPEzAR1Typ1RC+qPfe0vCeWeV0FLG2pfVGb0vIfeg==}
     dev: true
 
   /babel-plugin-polyfill-corejs2@0.4.3(@babel/core@7.22.5):

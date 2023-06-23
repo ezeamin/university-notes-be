@@ -4,9 +4,9 @@
   "description": "Mailer for University Cypress Project",
   "main": "index.js",
   "scripts": {
-    "build": "babel index.js -d dist",
-    "start": "babel-node index.js NODE_TLS_REJECT_UNAUTHORIZED='0'",
-    "dev": "babel-node index.js --watch NODE_TLS_REJECT_UNAUTHORIZED='0'"
+    "build": "babel ./index.js -d dist",
+    "start": "babel-node ./index.js NODE_TLS_REJECT_UNAUTHORIZED='0'",
+    "dev": "babel-node ./index.js --watch NODE_TLS_REJECT_UNAUTHORIZED='0'"
   },
   "keywords": [],
   "author": "Ezequiel Amin",
