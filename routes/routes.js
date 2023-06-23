@@ -17,20 +17,23 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post('/', async (req, res) => {
-  let text = `\nPrueba realizada a las ${new Date().toLocaleTimeString(
-    ('es-AR',
-    {
-      timeZone: 'America/Argentina/Tucuman',
-    })
-  )} del día ${new Date().toLocaleDateString(
-    ('es-AR',
-    {
-      timeZone: 'America/Argentina/Tucuman',
-    })
-  )}\n\n`;
+  const date = new Date().toLocaleString('es-AR', {
+    timeZone: 'America/Argentina/Buenos_Aires',
+  });
+
+  let text = `\nPrueba realizada en ${date}\n\n`;
 
   const args = req.body;
   let novedades = false;
+
+  if (
+    Object.keys(args) === 0 ||
+    !args[0]?.materia ||
+    !args[0]?.state ||
+    !args[0]?.score
+  ) {
+    return res.sendStatus(400);
+  }
 
   for (let i = 0; i < args.length; i++) {
     const { materia, state, score = '' } = args[i] || {};
@@ -43,7 +46,7 @@ router.post('/', async (req, res) => {
 
     text += `
       ${materia.id} - ${materia.description} - ${description} (${state}) ${
-      score ? `- ${score} ${score >= 4 ? '🥳🎉' : '😥😭'}` : ''
+      score ? `- ${score} ${state === 'A' ? '🥳🎉' : '😥😭'}` : ''
     }
     `;
   }
@@ -53,7 +56,7 @@ router.post('/', async (req, res) => {
     to: process.env.MAIL_USER,
     subject: `${
       novedades ? 'NOVEDADES!! - ' : ''
-    }Resultados de la prueba - UNSTA`,
+    }Resultados automáticos - UNSTA`,
     text: text,
   };
 
@@ -61,7 +64,7 @@ router.post('/', async (req, res) => {
     await transporter.sendMail(mailOptions);
     res.sendStatus(200);
   } catch (e) {
-    console.log('ERRORRRRR:', e);
+    console.log('ERROR:', e);
     res.sendStatus(500);
   }
 });
