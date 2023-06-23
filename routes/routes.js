@@ -29,9 +29,15 @@ router.post('/', async (req, res) => {
   if (
     Object.keys(args) === 0 ||
     !args[0]?.materia ||
-    !args[0]?.state ||
-    !args[0]?.score
+    !args[0]?.state
   ) {
+    console.log(
+      Object.keys(args) === 0,
+      '-',
+      !args[0]?.materia,
+      '-',
+      !args[0]?.state
+    );
     return res.sendStatus(400);
   }
 
