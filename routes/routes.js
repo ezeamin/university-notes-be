@@ -31,13 +31,6 @@ router.post('/', async (req, res) => {
     !args[0]?.materia ||
     !args[0]?.state
   ) {
-    console.log(
-      Object.keys(args) === 0,
-      '-',
-      !args[0]?.materia,
-      '-',
-      !args[0]?.state
-    );
     return res.sendStatus(400);
   }
 
