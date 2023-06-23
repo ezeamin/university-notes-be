@@ -1,0 +1,27 @@
+{
+  "name": "university-notes-be",
+  "version": "1.0.0",
+  "description": "Mailer for University Cypress Project",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel index.js -d dist",
+    "start": "babel-node index.js NODE_TLS_REJECT_UNAUTHORIZED='0'",
+    "dev": "babel-node index.js --watch NODE_TLS_REJECT_UNAUTHORIZED='0'"
+  },
+  "keywords": [],
+  "author": "Ezequiel Amin",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.5",
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5"
+  }
+}
