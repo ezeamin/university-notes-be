@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-router.post('/', async (req, res) => {
+router.post('/finales', async (req, res) => {
   const date = new Date().toLocaleString('es-AR', {
     timeZone: 'America/Argentina/Buenos_Aires',
   });
@@ -26,11 +26,7 @@ router.post('/', async (req, res) => {
   const args = req.body;
   let novedades = false;
 
-  if (
-    Object.keys(args) === 0 ||
-    !args[0]?.materia ||
-    !args[0]?.state
-  ) {
+  if (Object.keys(args) === 0 || !args[0]?.materia || !args[0]?.state) {
     return res.sendStatus(400);
   }
 
@@ -55,7 +51,46 @@ router.post('/', async (req, res) => {
     to: process.env.MAIL_USER,
     subject: `${
       novedades ? 'NOVEDADES!! - ' : ''
-    }Resultados automáticos - UNSTA`,
+    }Resultados automáticos FINALES - UNSTA`,
+    text: text,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log('ERROR:', e);
+    res.sendStatus(500);
+  }
+});
+
+router.post('/parciales', async (req, res) => {
+  const date = new Date().toLocaleString('es-AR', {
+    timeZone: 'America/Argentina/Buenos_Aires',
+  });
+
+  let text = `\nPrueba realizada en ${date}\n\n`;
+
+  const body = req.body;
+
+  if (Object.keys(body) === 0) {
+    return res.sendStatus(400);
+  }
+
+  const { novedades } = body;
+
+  if (novedades) {
+    text += 'NOVEDADES!!\n\nRevisa los parciales 🎉\n\n';
+  } else {
+    text += 'No hay novedades en los parciales 😥😭\n\n';
+  }
+
+  const mailOptions = {
+    from: process.env.MAIL_USER,
+    to: process.env.MAIL_USER,
+    subject: `${
+      novedades ? 'NOVEDADES!! - ' : ''
+    }Resultados automáticos PARCIALES - UNSTA`,
     text: text,
   };
 
