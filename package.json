@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node --env-file=.env --watch src/index.js",
     "build": "esbuild src/index.js --bundle --platform=node --outfile=dist/index.cjs --minify",
-    "start": "node --env-file=.env dist/index.cjs NODE_TLS_REJECT_UNAUTHORIZED='0'"
+    "start": "node dist/index.cjs NODE_TLS_REJECT_UNAUTHORIZED='0'"
   },
   "keywords": [],
   "author": "Ezequiel Amin",
@@ -19,6 +19,7 @@
     "nodemailer": "^6.9.7"
   },
   "devDependencies": {
+    "dotenv": "^16.4.5",
     "esbuild": "^0.19.7"
   },
   "engines": {

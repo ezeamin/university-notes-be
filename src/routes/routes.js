@@ -1,7 +1,10 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
 import { data } from '../data.js';
+
+dotenv.config();
 
 export const router = express.Router();
 
